@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TaipeiZooApiSample</string>
+    <string name="zoo_title">園區簡介</string>
 </resources>
