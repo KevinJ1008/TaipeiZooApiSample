@@ -3,5 +3,7 @@
 
     <!-- Toolbar -->
     <dimen name="height_toolbar">88dp</dimen>
+    <dimen name="main_image_width">125</dimen>
+    <dimen name="main_image_height">125</dimen>
 
 </resources>

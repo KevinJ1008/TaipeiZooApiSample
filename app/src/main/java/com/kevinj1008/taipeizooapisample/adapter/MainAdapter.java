@@ -1,5 +1,6 @@
 package com.kevinj1008.taipeizooapisample.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import com.kevinj1008.taipeizooapisample.R;
 import com.kevinj1008.taipeizooapisample.api.bean.GetZoos;
 import com.kevinj1008.taipeizooapisample.main.MainContract;
 import com.kevinj1008.taipeizooapisample.model.Zoo;
+import com.kevinj1008.taipeizooapisample.util.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,14 +38,15 @@ public class MainAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Log.d(Constants.TAG, "MainView Bind");
         Picasso.get()
                 .load(mZoos.get(position).getPicture())
-                .centerCrop()
+                .placeholder(R.drawable.all_picture_placeholder)
                 .into(((MainItemViewHolder) holder).mZooPicture);
         ((MainItemViewHolder) holder).mZooName.setText(mZoos.get(position).getName());
         ((MainItemViewHolder) holder).mZooInfo.setText(mZoos.get(position).getInfo());
         if ("".equals(mZoos.get(position).getMemo())) {
-            ((MainItemViewHolder) holder).mZooMemo.setText("無休館資訊");
+            ((MainItemViewHolder) holder).mZooMemo.setText(R.string.zoo_no_memo);
         } else {
             ((MainItemViewHolder) holder).mZooMemo.setText(mZoos.get(position).getMemo());
         }
@@ -76,5 +79,6 @@ public class MainAdapter extends RecyclerView.Adapter {
         }
 
         notifyDataSetChanged();
+        Log.d(Constants.TAG, "MainAdapter update data");
     }
 }

@@ -7,12 +7,11 @@ import com.kevinj1008.taipeizooapisample.api.ApiConstants;
 import com.kevinj1008.taipeizooapisample.api.ApiService;
 import com.kevinj1008.taipeizooapisample.api.bean.GetZoos;
 import com.kevinj1008.taipeizooapisample.api.callback.GetZoosCallback;
-import com.kevinj1008.taipeizooapisample.model.Zoo;
+import com.kevinj1008.taipeizooapisample.model.response.ZooResponse;
+import com.kevinj1008.taipeizooapisample.model.result.ZooResult;
 import com.kevinj1008.taipeizooapisample.util.Constants;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,29 +35,45 @@ public class GetZoosTask extends AsyncTask<Object, Void, GetZoos> {
     protected GetZoos doInBackground(Object[] objects) {
         final GetZoos bean = new GetZoos();
 
-//        try {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiService service = retrofit.create(ApiService.class);
-        Call<Zoo> call = service.getZoos();
-        call.enqueue(new Callback<Zoo>() {
+        Call<ZooResponse> call = service.getZooResponse();
+        call.enqueue(new Callback<ZooResponse>() {
             @Override
-            public void onResponse(Call<Zoo> call, Response<Zoo> response) {
-                Log.d(Constants.TAG, "response body: " + response.body().toString());
-                Zoo zoo = response.body();
-                for (int i = 0; i < bean.getZoos().size(); i++) {
-                    bean.getZoos().add(zoo);
-                }
+            public void onResponse(Call<ZooResponse> call, Response<ZooResponse> response) {
+                ZooResponse zooResponse = response.body();
+                Log.d(Constants.TAG, "Get ZooResponse: " + zooResponse.toString());
+
+                ZooResult zooResult = zooResponse.getZooResult();
+                Log.d(Constants.TAG, "Get ZooResult: " + zooResult.toString());
+                bean.getZoos().addAll(zooResult.getZoos());
             }
 
             @Override
-            public void onFailure(Call<Zoo> call, Throwable t) {
+            public void onFailure(Call<ZooResponse> call, Throwable t) {
                 Log.d(Constants.TAG, "Api fail: " + t.getMessage());
             }
         });
+//        Call<Zoo> call = service.getZoos();
+//        call.enqueue(new Callback<Zoo>() {
+//            @Override
+//            public void onResponse(Call<Zoo> call, ZooResponse<Zoo> response) {
+//                Log.d(Constants.TAG, "response body: " + response.body().toString());
+//                Zoo zoo = response.body();
+//                for (int i = 0; i < bean.getZoos().size(); i++) {
+//                    bean.getZoos().add(zoo);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Zoo> call, Throwable t) {
+//                Log.d(Constants.TAG, "Api fail: " + t.getMessage());
+//            }
+//        });
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }

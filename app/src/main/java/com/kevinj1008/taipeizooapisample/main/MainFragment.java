@@ -60,7 +60,14 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+        try {
+            mPresenter = checkNotNull(presenter);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (mPresenter == null) {
+                mPresenter = new MainPresenter(this);
+            }
+        }
     }
 
     @Override

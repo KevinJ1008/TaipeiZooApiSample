@@ -8,7 +8,7 @@
 //
 //import retrofit2.Call;
 //import retrofit2.Callback;
-//import retrofit2.Response;
+//import retrofit2.ZooResponse;
 //import retrofit2.Retrofit;
 //
 //public class ApiHelper {
@@ -21,7 +21,7 @@
 //        Call<ArrayList<Zoo>> call = service.getZoos();
 //        call.enqueue(new Callback<ArrayList<Zoo>>() {
 //            @Override
-//            public void onResponse(Call<ArrayList<Zoo>> call, Response<ArrayList<Zoo>> response) {
+//            public void onResponse(Call<ArrayList<Zoo>> call, ZooResponse<ArrayList<Zoo>> response) {
 //                ArrayList<Zoo> zoos = response.body();
 //
 //            }

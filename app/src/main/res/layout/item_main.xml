@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:clickable="true"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/zoo_picture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:srcCompat="@drawable/all_picture_placeholder" />
 
     <TextView
         android:id="@+id/zoo_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/zoo_picture"
-        app:layout_constraintTop_toTopOf="@+id/zoo_picture"
         android:textSize="18sp"
-        tools:text="無尾熊館"/>
+        app:layout_constraintBottom_toTopOf="@+id/zoo_info"
+        app:layout_constraintStart_toStartOf="@+id/zoo_info"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="無尾熊館" />
 
     <TextView
         android:id="@+id/zoo_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/zoo_name"
-        app:layout_constraintStart_toStartOf="@+id/zoo_name"
-        app:layout_constraintEnd_toStartOf="@id/detail_button"
-        android:textSize="14sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
         android:ellipsize="end"
         android:lines="2"
-        tools:text="臺灣動物區以臺灣原生動物與棲息環境為展示重點，佈置模擬動物原生棲地之生態環境，讓動物表現如野外般自然的生活習性，引導觀賞者更正確地認識本土野生動物。臺灣位處於亞熱帶，雨量充沛、氣候溫暖，擁有各種地形景觀，因而孕育了豐富龐雜的生物資源。"/>
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/zoo_memo"
+        app:layout_constraintEnd_toStartOf="@id/detail_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/zoo_picture"
+        app:layout_constraintTop_toBottomOf="@+id/zoo_name"
+        tools:text="臺灣動物區以臺灣原生動物與棲息環境為展示重點，佈置模擬動物原生棲地之生態環境，讓動物表現如野外般自然的生活習性，引導觀賞者更正確地認識本土野生動物。臺灣位處於亞熱帶，雨量充沛、氣候溫暖，擁有各種地形景觀，因而孕育了豐富龐雜的生物資源。" />
 
     <TextView
         android:id="@+id/zoo_memo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/zoo_info"
         app:layout_constraintTop_toBottomOf="@+id/zoo_info"
-        app:layout_constraintBottom_toBottomOf="@+id/zoo_picture"
-        app:layout_constraintStart_toStartOf="@+id/zoo_name"
-        android:textSize="16sp"
-        tools:text="無休館資訊"/>
+        tools:text="無休館資訊" />
 
-    <Button
+    <ImageView
         android:id="@+id/detail_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/zoo_info"/>
+        app:layout_constraintStart_toEndOf="@+id/zoo_info"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
