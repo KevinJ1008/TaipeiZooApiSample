@@ -80,7 +80,11 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
     @Override
     public void showPlantDetailUi(Plant plant) {
         enableDrawerBackKey(true);
-        mToolbarTitle.setText(plant.getNameCh());
+        if (!"".equals(plant.getNameCh())) {
+            mToolbarTitle.setText(plant.getNameCh());
+        } else {
+            mToolbarTitle.setText(R.string.no_plant_name_ch);
+        }
     }
 
     public void transToZooDetail(Zoo zoo) {

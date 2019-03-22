@@ -8,4 +8,5 @@
     <string name="zoo_no_memo">無休館資訊</string>
     <string name="web_button_title">在網頁開啟</string>
     <string name="plant_intro_title">植物資料</string>
+    <string name="no_plant_name_ch">尚無中文名稱</string>
 </resources>

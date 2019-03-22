@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.kevinj1008.taipeizooapisample.R;
 import com.kevinj1008.taipeizooapisample.TaipeiZoo;
+import com.kevinj1008.taipeizooapisample.TaipeiZooActivity;
 import com.kevinj1008.taipeizooapisample.adapter.ZooDetailAdapter;
 import com.kevinj1008.taipeizooapisample.api.bean.GetPlants;
 import com.kevinj1008.taipeizooapisample.model.Plant;
@@ -86,7 +87,7 @@ public class ZooDetailFragment extends Fragment implements ZooDetailContract.Vie
 
     @Override
     public void showPlantDetailUi(Plant plant) {
-
+        ((TaipeiZooActivity) getActivity()).transToPlantDetail(plant);
     }
 
     @Override

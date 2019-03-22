@@ -77,7 +77,7 @@ public class ZooDetailPresenter implements ZooDetailContract.Presenter {
 
     @Override
     public void openPlantDetail(Plant plant) {
-
+        mZooDetailView.showPlantDetailUi(plant);
     }
 
     @Override

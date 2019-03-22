@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="@drawable/ripple_white">
+    android:foreground="@drawable/ripple_white"
+    android:id="@+id/plant_container">
 
     <View
         android:id="@+id/plant_separator"

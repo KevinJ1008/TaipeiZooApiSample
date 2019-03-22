@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kevinj1008.taipeizooapisample.R;
+import com.kevinj1008.taipeizooapisample.TaipeiZooActivity;
 import com.kevinj1008.taipeizooapisample.api.bean.GetPlants;
 import com.kevinj1008.taipeizooapisample.model.Plant;
 import com.kevinj1008.taipeizooapisample.model.Zoo;
@@ -18,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ZooDetailAdapter extends RecyclerView.Adapter {
@@ -63,15 +65,15 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
                 ((ZooDetailPlantItemViewHolder) holder).mSeparator.setVisibility(View.VISIBLE);
             }
             //TODO: Figure out plant api null string issue
-            if (mPlants.get(position).getPicture01() != null) {
+            if (!"".equals(mPlants.get(position - 1).getPicture01())) {
                 Picasso.get()
-                        .load(mPlants.get(position).getPicture01())
+                        .load(mPlants.get(position - 1).getPicture01())
                         .placeholder(R.drawable.all_picture_placeholder)
                         .into(((ZooDetailPlantItemViewHolder) holder).mPlantImage);
             }
 
-            ((ZooDetailPlantItemViewHolder) holder).mPlantNameCh.setText(mPlants.get(position).getNameCh());
-            ((ZooDetailPlantItemViewHolder) holder).mPlantAlsoKnow.setText(mPlants.get(position).getAlsoKnown());
+            ((ZooDetailPlantItemViewHolder) holder).mPlantNameCh.setText(mPlants.get(position - 1).getNameCh());
+            ((ZooDetailPlantItemViewHolder) holder).mPlantAlsoKnow.setText(mPlants.get(position - 1).getAlsoKnown());
         }
 
     }
@@ -117,6 +119,7 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
         private TextView mPlantNameCh;
         private TextView mPlantAlsoKnow;
         private View mSeparator;
+        private ConstraintLayout mPlantContainer;
 
         public ZooDetailPlantItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -125,7 +128,19 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
             mPlantNameCh = itemView.findViewById(R.id.plant_name_ch);
             mPlantAlsoKnow = itemView.findViewById(R.id.plant_also_know);
             mSeparator = itemView.findViewById(R.id.plant_separator);
+            mPlantContainer = itemView.findViewById(R.id.plant_container);
+
+            mPlantContainer.setOnClickListener(clickListener);
         }
+
+        private View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view.getId() == R.id.plant_container) {
+                   mPresenter.openPlantDetail(mPlants.get(getAdapterPosition()));
+                }
+            }
+        };
     }
 
     public void updateData(GetPlants plants) {
