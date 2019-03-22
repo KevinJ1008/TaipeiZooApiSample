@@ -149,7 +149,7 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 if (view.getId() == R.id.plant_container) {
-                   mPresenter.openPlantDetail(mPlants.get(getAdapterPosition()));
+                   mPresenter.openPlantDetail(mPlants.get(getAdapterPosition() - 1));
                 }
             }
         };
@@ -161,7 +161,7 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
         }
 
         notifyDataSetChanged();
-        Log.d(Constants.TAG, "MainAdapter update data");
+        Log.d(Constants.TAG, "Zoo Detail Adapter update data size: " + plants.getPlants().size());
     }
 
     public void initData() {

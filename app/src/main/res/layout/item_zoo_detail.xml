@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/zoo_detail_image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/detail_image_height"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

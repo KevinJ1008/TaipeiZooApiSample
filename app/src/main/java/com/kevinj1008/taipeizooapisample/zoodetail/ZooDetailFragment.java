@@ -67,14 +67,7 @@ public class ZooDetailFragment extends Fragment implements ZooDetailContract.Vie
 
     @Override
     public void setPresenter(ZooDetailContract.Presenter presenter) {
-//        try {
             mPresenter = checkNotNull(presenter);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            if (mPresenter == null) {
-//                mPresenter = new ZooDetailPresenter(this);
-//            }
-//        }
     }
 
     @Override

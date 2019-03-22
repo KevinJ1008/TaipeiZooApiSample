@@ -35,6 +35,8 @@
         app:layout_constraintBottom_toTopOf="@+id/plant_also_know"
         app:layout_constraintStart_toEndOf="@+id/plant_image"
         app:layout_constraintTop_toTopOf="@+id/plant_image"
+        android:textSize="18sp"
+        android:textColor="@color/black"
         tools:text="九芎" />
 
     <TextView

@@ -4,6 +4,8 @@ import com.kevinj1008.taipeizooapisample.main.MainFragment;
 import com.kevinj1008.taipeizooapisample.main.MainPresenter;
 import com.kevinj1008.taipeizooapisample.model.Plant;
 import com.kevinj1008.taipeizooapisample.model.Zoo;
+import com.kevinj1008.taipeizooapisample.plantdetail.PlantDetailFragment;
+import com.kevinj1008.taipeizooapisample.plantdetail.PlantDetailPresenter;
 import com.kevinj1008.taipeizooapisample.zoodetail.ZooDetailFragment;
 import com.kevinj1008.taipeizooapisample.zoodetail.ZooDetailPresenter;
 
@@ -23,12 +25,13 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
-            MAIN, ZOO_DETAIL
+            MAIN, ZOO_DETAIL, PLANT_DETAIL
     })
 
     public @interface FragmentType {}
     public static final String MAIN = "MAIN";
     public static final String ZOO_DETAIL = "ZOODETAIL";
+    public static final String PLANT_DETAIL = "PLANTDETAIL";
 
     public static void getType(@FragmentType String type) {
     }
@@ -38,6 +41,9 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
 
     private ZooDetailFragment mZooDetailFragment;
     private ZooDetailPresenter mZooDetailPresenter;
+
+    private PlantDetailFragment mPlantDetailFragment;
+    private PlantDetailPresenter mPlantDetailPresenter;
 
     public TaipeiZooPresenter(TaipeiZooContract.View taipeiZooView, FragmentManager fragmentManager) {
         mTaipeiZooView = checkNotNull(taipeiZooView, "taipeiZooView cannot be null!");
@@ -57,7 +63,7 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
 
         if (mFragmentManager.findFragmentByTag(ZOO_DETAIL) != null) {
             mFragmentManager.popBackStack();
-            mZooDetailPresenter.refresh();
+//            mZooDetailPresenter.refresh();
         }
 
         if (mMainFragment == null) mMainFragment = MainFragment.newInstance();
@@ -80,6 +86,10 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
     public void transToZooDetail(Zoo zoo) {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
 
+        if (mFragmentManager.findFragmentByTag(PLANT_DETAIL) != null) {
+            mFragmentManager.popBackStack();
+        }
+
         if (mMainFragment != null && mMainFragment.isAdded()) {
             transaction.hide(mMainFragment).addToBackStack(MAIN);
         }
@@ -93,6 +103,22 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
 
     @Override
     public void transToPlantDetail(Plant plant) {
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+
+        if (mZooDetailFragment != null && mZooDetailFragment.isAdded()) {
+            transaction.hide(mZooDetailFragment).addToBackStack(ZOO_DETAIL);
+        }
+
+        if (mMainFragment != null && mMainFragment.isAdded()) {
+            transaction.hide(mMainFragment);
+        }
+
+        mPlantDetailFragment = PlantDetailFragment.newInstance();
+        transaction.add(R.id.main_container, mPlantDetailFragment, PLANT_DETAIL).commit();
+
+        mPlantDetailPresenter = new PlantDetailPresenter(mPlantDetailFragment, plant);
+        mTaipeiZooView.showPlantDetailUi(plant);
 
     }
 }

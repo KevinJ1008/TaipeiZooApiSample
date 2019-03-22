@@ -23,6 +23,7 @@ public interface TaipeiZooContract {
         void transToZooDetail(Zoo zoo);
 
         void transToPlantDetail(Plant plant);
+
     }
 
 }
