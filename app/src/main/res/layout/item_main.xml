@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:foreground="@drawable/ripple_white"
+    android:id="@+id/zoo_container">
 
     <ImageView
         android:id="@+id/zoo_picture"
@@ -18,7 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/all_picture_placeholder" />
+        tools:srcCompat="@drawable/all_picture_placeholder" />
 
     <TextView
         android:id="@+id/zoo_name"
@@ -48,10 +50,11 @@
 
     <TextView
         android:id="@+id/zoo_memo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/zoo_info"
         app:layout_constraintStart_toStartOf="@+id/zoo_info"
         app:layout_constraintTop_toBottomOf="@+id/zoo_info"
         tools:text="無休館資訊" />

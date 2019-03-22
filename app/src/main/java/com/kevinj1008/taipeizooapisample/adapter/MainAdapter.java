@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainAdapter extends RecyclerView.Adapter {
@@ -25,8 +26,8 @@ public class MainAdapter extends RecyclerView.Adapter {
     private ArrayList<Zoo> mZoos;
 
     public MainAdapter(GetZoos zoos, MainContract.Presenter presenter) {
-        mPresenter = presenter;
         this.mZoos = zoos.getZoos();
+        mPresenter = presenter;
     }
 
     @NonNull
@@ -42,6 +43,8 @@ public class MainAdapter extends RecyclerView.Adapter {
         Picasso.get()
                 .load(mZoos.get(position).getPicture())
                 .placeholder(R.drawable.all_picture_placeholder)
+                .resize(125, 125)
+                .centerCrop()
                 .into(((MainItemViewHolder) holder).mZooPicture);
         ((MainItemViewHolder) holder).mZooName.setText(mZoos.get(position).getName());
         ((MainItemViewHolder) holder).mZooInfo.setText(mZoos.get(position).getInfo());
@@ -62,6 +65,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         private TextView mZooName;
         private TextView mZooInfo;
         private TextView mZooMemo;
+        private ConstraintLayout mZooContainer;
 
         public MainItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,7 +74,19 @@ public class MainAdapter extends RecyclerView.Adapter {
             mZooName = itemView.findViewById(R.id.zoo_name);
             mZooInfo = itemView.findViewById(R.id.zoo_info);
             mZooMemo = itemView.findViewById(R.id.zoo_memo);
+            mZooContainer = itemView.findViewById(R.id.zoo_container);
+
+            mZooContainer.setOnClickListener(clickListener);
         }
+
+        private View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view.getId() == R.id.zoo_container) {
+                    mPresenter.openZooDetail(mZoos.get(getAdapterPosition()));
+                }
+            }
+        };
     }
 
     public void updateData(GetZoos zoos) {
@@ -81,4 +97,5 @@ public class MainAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
         Log.d(Constants.TAG, "MainAdapter update data");
     }
+
 }

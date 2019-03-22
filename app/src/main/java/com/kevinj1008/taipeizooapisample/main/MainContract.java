@@ -32,7 +32,7 @@ public interface MainContract {
 //
 //        void onScrolled(RecyclerView.LayoutManager layoutManager);
 
-        void openZooDetail(Zoo Zoo);
+        void openZooDetail(Zoo zoo);
 
         void openPlant(Zoo zoo);
 

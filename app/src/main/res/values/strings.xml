@@ -6,4 +6,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="zoo_no_memo">無休館資訊</string>
+    <string name="web_button_title">在網頁開啟</string>
+    <string name="plant_intro_title">植物資料</string>
 </resources>

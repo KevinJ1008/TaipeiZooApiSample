@@ -1,0 +1,149 @@
+package com.kevinj1008.taipeizooapisample.adapter;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.kevinj1008.taipeizooapisample.R;
+import com.kevinj1008.taipeizooapisample.api.bean.GetPlants;
+import com.kevinj1008.taipeizooapisample.model.Plant;
+import com.kevinj1008.taipeizooapisample.model.Zoo;
+import com.kevinj1008.taipeizooapisample.util.Constants;
+import com.kevinj1008.taipeizooapisample.zoodetail.ZooDetailContract;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class ZooDetailAdapter extends RecyclerView.Adapter {
+
+    private ZooDetailContract.Presenter mPresenter;
+    private ArrayList<Plant> mPlants;
+    private Zoo mZoo;
+
+    public ZooDetailAdapter(GetPlants plants, ZooDetailContract.Presenter presenter) {
+        this.mPlants = plants.getPlants();
+        mPresenter = presenter;
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == Constants.VIEWTYPE_ZOO_DETAIL) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_zoo_detail, parent, false);
+            return new ZooDetailItemViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_zoo_detail_plant, parent, false);
+            return new ZooDetailPlantItemViewHolder(view);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ZooDetailItemViewHolder) {
+            Picasso.get()
+                    .load(mZoo.getPicture())
+                    .into(((ZooDetailItemViewHolder) holder).mZooPicture);
+            ((ZooDetailItemViewHolder) holder).mZooInfo.setText(mZoo.getInfo());
+            if ("".equals(mZoo.getMemo())) {
+                ((ZooDetailItemViewHolder) holder).mZooMemo.setText(R.string.zoo_no_memo);
+            } else {
+                ((ZooDetailItemViewHolder) holder).mZooMemo.setText(mZoo.getMemo());
+            }
+            ((ZooDetailItemViewHolder) holder).mZooName.setText(mZoo.getName());
+        } else {
+            if (position == 1) {
+                ((ZooDetailPlantItemViewHolder) holder).mSeparator.setVisibility(View.GONE);
+            } else {
+                ((ZooDetailPlantItemViewHolder) holder).mSeparator.setVisibility(View.VISIBLE);
+            }
+            //TODO: Figure out plant api null string issue
+            if (mPlants.get(position).getPicture01() != null) {
+                Picasso.get()
+                        .load(mPlants.get(position).getPicture01())
+                        .placeholder(R.drawable.all_picture_placeholder)
+                        .into(((ZooDetailPlantItemViewHolder) holder).mPlantImage);
+            }
+
+            ((ZooDetailPlantItemViewHolder) holder).mPlantNameCh.setText(mPlants.get(position).getNameCh());
+            ((ZooDetailPlantItemViewHolder) holder).mPlantAlsoKnow.setText(mPlants.get(position).getAlsoKnown());
+        }
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return (mPlants.isEmpty()) ? 1 : mPlants.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return Constants.VIEWTYPE_ZOO_DETAIL;
+        } else {
+            return Constants.VIEWTYPE_ZOO_PLANT;
+        }
+    }
+
+    private class ZooDetailItemViewHolder extends RecyclerView.ViewHolder {
+
+        private ImageView mZooPicture;
+        private TextView mZooInfo;
+        private TextView mZooMemo;
+        private TextView mZooName;
+        private TextView mWebButton;
+
+        public ZooDetailItemViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            mZooPicture = itemView.findViewById(R.id.zoo_detail_image);
+            mZooInfo = itemView.findViewById(R.id.zoo_detail_info);
+            mZooMemo = itemView.findViewById(R.id.zoo_detail_memo);
+            mZooName = itemView.findViewById(R.id.zoo_detail_name);
+            mWebButton = itemView.findViewById(R.id.web_button);
+
+            //TODO: add web button click listener
+        }
+    }
+
+    private class ZooDetailPlantItemViewHolder extends RecyclerView.ViewHolder {
+
+        private ImageView mPlantImage;
+        private TextView mPlantNameCh;
+        private TextView mPlantAlsoKnow;
+        private View mSeparator;
+
+        public ZooDetailPlantItemViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            mPlantImage = itemView.findViewById(R.id.plant_image);
+            mPlantNameCh = itemView.findViewById(R.id.plant_name_ch);
+            mPlantAlsoKnow = itemView.findViewById(R.id.plant_also_know);
+            mSeparator = itemView.findViewById(R.id.plant_separator);
+        }
+    }
+
+    public void updateData(GetPlants plants) {
+        for (Plant plant : plants.getPlants()) {
+            mPlants.add(plant);
+        }
+
+        notifyDataSetChanged();
+        Log.d(Constants.TAG, "MainAdapter update data");
+    }
+
+    public void initData() {
+        mPlants.clear();
+        notifyDataSetChanged();
+    }
+
+    public void showZoo(Zoo zoo) {
+        this.mZoo = zoo;
+    }
+
+}

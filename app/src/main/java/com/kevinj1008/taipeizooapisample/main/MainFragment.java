@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.kevinj1008.taipeizooapisample.R;
 import com.kevinj1008.taipeizooapisample.TaipeiZoo;
+import com.kevinj1008.taipeizooapisample.TaipeiZooActivity;
 import com.kevinj1008.taipeizooapisample.adapter.MainAdapter;
 import com.kevinj1008.taipeizooapisample.api.bean.GetZoos;
 import com.kevinj1008.taipeizooapisample.model.Zoo;
@@ -77,7 +78,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Override
     public void showZooDetailUi(Zoo zoo) {
-
+        ((TaipeiZooActivity) getActivity()).transToZooDetail(zoo);
     }
 
     @Override

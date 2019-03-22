@@ -7,10 +7,14 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.kevinj1008.taipeizooapisample.base.BaseActivity;
+import com.kevinj1008.taipeizooapisample.model.Plant;
+import com.kevinj1008.taipeizooapisample.model.Zoo;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.ContentFrameLayout;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -51,8 +55,11 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
 
     @Override
     public void onBackPressed() {
+        ConstraintLayout zooDetailPage = findViewById(R.id.zoo_detail_page);
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else if (zooDetailPage != null && zooDetailPage.getVisibility() == View.VISIBLE) {
+            mPresenter.transToMain();
         } else {
             super.onBackPressed();
         }
@@ -62,6 +69,26 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
     public void showMainUi() {
         enableDrawerBackKey(false);
         mToolbarTitle.setText(getString(R.string.taipei_zoo_title));
+    }
+
+    @Override
+    public void showZooDetailUi(Zoo zoo) {
+        enableDrawerBackKey(true);
+        mToolbarTitle.setText(zoo.getName());
+    }
+
+    @Override
+    public void showPlantDetailUi(Plant plant) {
+        enableDrawerBackKey(true);
+        mToolbarTitle.setText(plant.getNameCh());
+    }
+
+    public void transToZooDetail(Zoo zoo) {
+        mPresenter.transToZooDetail(zoo);
+    }
+
+    public void transToPlantDetail(Plant plant) {
+        mPresenter.transToPlantDetail(plant);
     }
 
     @Override
