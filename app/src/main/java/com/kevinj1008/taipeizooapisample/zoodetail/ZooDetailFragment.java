@@ -1,5 +1,7 @@
 package com.kevinj1008.taipeizooapisample.zoodetail;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -88,6 +90,13 @@ public class ZooDetailFragment extends Fragment implements ZooDetailContract.Vie
     @Override
     public void showPlantDetailUi(Plant plant) {
         ((TaipeiZooActivity) getActivity()).transToPlantDetail(plant);
+    }
+
+    @Override
+    public void showZooWeb(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
     @Override

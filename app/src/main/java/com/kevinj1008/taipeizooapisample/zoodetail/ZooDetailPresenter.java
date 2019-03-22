@@ -81,6 +81,11 @@ public class ZooDetailPresenter implements ZooDetailContract.Presenter {
     }
 
     @Override
+    public void openZooWeb(String url) {
+        mZooDetailView.showZooWeb(url);
+    }
+
+    @Override
     public void refresh() {
         mZooDetailView.refreshUi();
     }

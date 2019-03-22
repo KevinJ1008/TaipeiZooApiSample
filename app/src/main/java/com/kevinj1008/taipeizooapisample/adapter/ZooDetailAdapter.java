@@ -1,5 +1,7 @@
 package com.kevinj1008.taipeizooapisample.adapter;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,8 +111,18 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
             mZooName = itemView.findViewById(R.id.zoo_detail_name);
             mWebButton = itemView.findViewById(R.id.web_button);
 
-            //TODO: add web button click listener
+            mWebButton.setOnClickListener(openWeb);
         }
+
+        private View.OnClickListener openWeb = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view.getId() == R.id.web_button) {
+                    String url = mZoo.getURL();
+                    mPresenter.openZooWeb(url);
+                }
+            }
+        };
     }
 
     private class ZooDetailPlantItemViewHolder extends RecyclerView.ViewHolder {

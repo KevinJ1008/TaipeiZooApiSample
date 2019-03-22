@@ -16,6 +16,8 @@ public interface ZooDetailContract {
 
         void showPlantDetailUi(Plant plant);
 
+        void showZooWeb(String url);
+
         void refreshUi();
 
     }
@@ -31,6 +33,8 @@ public interface ZooDetailContract {
         void showZoo(Zoo zoo);
 
         void openPlantDetail(Plant plant);
+
+        void openZooWeb(String url);
 
         void refresh();
     }
