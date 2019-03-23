@@ -1,6 +1,7 @@
 package com.kevinj1008.taipeizooapisample;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.kevinj1008.taipeizooapisample.base.BaseActivity;
 import com.kevinj1008.taipeizooapisample.model.Plant;
 import com.kevinj1008.taipeizooapisample.model.Zoo;
+import com.kevinj1008.taipeizooapisample.util.Constants;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -29,6 +31,9 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private TextView mToolbarTitle;
+
+    private Zoo mZoo;
+    private Plant mPlant;
 
     private boolean isToolBarNavListenerReg = false;
 
@@ -56,11 +61,14 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
     @Override
     public void onBackPressed() {
         ConstraintLayout zooDetailPage = findViewById(R.id.zoo_detail_page);
+        ConstraintLayout plantDetailPage = findViewById(R.id.plant_detail_page);
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else if (zooDetailPage != null && zooDetailPage.getVisibility() == View.VISIBLE) {
-            mPresenter.transToMain();
+//        } else if (zooDetailPage != null && zooDetailPage.getVisibility() == View.VISIBLE) {
+//            mPresenter.transToMain();
         } else {
+            if (zooDetailPage != null && zooDetailPage.getVisibility() == View.VISIBLE) showMainUi();
+            if (plantDetailPage != null && plantDetailPage.getVisibility() == View.VISIBLE) showZooDetailUi();
             super.onBackPressed();
         }
     }
@@ -72,26 +80,28 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
     }
 
     @Override
-    public void showZooDetailUi(Zoo zoo) {
+    public void showZooDetailUi() {
         enableDrawerBackKey(true);
-        mToolbarTitle.setText(zoo.getName());
+        mToolbarTitle.setText(mZoo.getName());
     }
 
     @Override
-    public void showPlantDetailUi(Plant plant) {
+    public void showPlantDetailUi() {
         enableDrawerBackKey(true);
-        if (!"".equals(plant.getNameCh())) {
-            mToolbarTitle.setText(plant.getNameCh());
+        if (!"".equals(mPlant.getNameCh())) {
+            mToolbarTitle.setText(mPlant.getNameCh());
         } else {
             mToolbarTitle.setText(R.string.no_plant_name_ch);
         }
     }
 
     public void transToZooDetail(Zoo zoo) {
+        this.mZoo = zoo;
         mPresenter.transToZooDetail(zoo);
     }
 
     public void transToPlantDetail(Plant plant) {
+        this.mPlant = plant;
         mPresenter.transToPlantDetail(plant);
     }
 

@@ -60,6 +60,11 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
                 ((ZooDetailItemViewHolder) holder).mZooMemo.setText(mZoo.getMemo());
             }
             ((ZooDetailItemViewHolder) holder).mZooName.setText(mZoo.getName());
+            if (mPlants.isEmpty()) {
+                ((ZooDetailItemViewHolder) holder).mPlantInfo.setVisibility(View.VISIBLE);
+            } else {
+                ((ZooDetailItemViewHolder) holder).mPlantInfo.setVisibility(View.GONE);
+            }
         } else {
             if (position == 1) {
                 ((ZooDetailPlantItemViewHolder) holder).mSeparator.setVisibility(View.GONE);
@@ -73,9 +78,16 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
                         .placeholder(R.drawable.all_picture_placeholder)
                         .into(((ZooDetailPlantItemViewHolder) holder).mPlantImage);
             }
-
-            ((ZooDetailPlantItemViewHolder) holder).mPlantNameCh.setText(mPlants.get(position - 1).getNameCh());
-            ((ZooDetailPlantItemViewHolder) holder).mPlantAlsoKnow.setText(mPlants.get(position - 1).getAlsoKnown());
+            if (!"".equals(mPlants.get(position - 1).getNameCh())) {
+                ((ZooDetailPlantItemViewHolder) holder).mPlantNameCh.setText(mPlants.get(position - 1).getNameCh());
+            } else {
+                ((ZooDetailPlantItemViewHolder) holder).mPlantNameCh.setText(R.string.no_plant_detail_name_ch);
+            }
+            if (!"".equals(mPlants.get(position - 1).getAlsoKnown())) {
+                ((ZooDetailPlantItemViewHolder) holder).mPlantAlsoKnow.setText(mPlants.get(position - 1).getAlsoKnown());
+            } else {
+                ((ZooDetailPlantItemViewHolder) holder).mPlantAlsoKnow.setText(R.string.no_plant_detail_also_known);
+            }
         }
 
     }
@@ -101,6 +113,7 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
         private TextView mZooMemo;
         private TextView mZooName;
         private TextView mWebButton;
+        private TextView mPlantInfo;
 
         public ZooDetailItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,6 +123,7 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
             mZooMemo = itemView.findViewById(R.id.zoo_detail_memo);
             mZooName = itemView.findViewById(R.id.zoo_detail_name);
             mWebButton = itemView.findViewById(R.id.web_button);
+            mPlantInfo = itemView.findViewById(R.id.no_plant_info);
 
             mWebButton.setOnClickListener(openWeb);
         }

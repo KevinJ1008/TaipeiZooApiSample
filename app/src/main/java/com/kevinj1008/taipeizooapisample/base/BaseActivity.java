@@ -2,6 +2,7 @@ package com.kevinj1008.taipeizooapisample.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Process;
@@ -10,6 +11,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.kevinj1008.taipeizooapisample.TaipeiZooActivity;
+import com.kevinj1008.taipeizooapisample.receiver.NetworkCheckReceiver;
+import com.kevinj1008.taipeizooapisample.util.Constants;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class BaseActivity extends AppCompatActivity {
 
     protected Context mContext;
+    private NetworkCheckReceiver mNetworkCheckReceiver;
     private final String IS_RELAUNCH = "is_relaunch";
 
     @Override
@@ -30,6 +34,11 @@ public class BaseActivity extends AppCompatActivity {
 
         this.mContext = this;
 
+        IntentFilter intentFilter = new IntentFilter();
+        mNetworkCheckReceiver = new NetworkCheckReceiver();
+        intentFilter.addAction(Constants.CONNECTIVITY_CHANGE);
+        registerReceiver(mNetworkCheckReceiver, intentFilter);
+
         setStatusBar();
     }
 
@@ -37,6 +46,12 @@ public class BaseActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putBoolean(IS_RELAUNCH, true);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mNetworkCheckReceiver);
     }
 
     private void restartApplication() {

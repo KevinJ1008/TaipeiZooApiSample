@@ -22,4 +22,7 @@
     <string name="no_plant_detail_feature">尚無辨認方式。</string>
     <string name="no_plant_detail_fuction">尚無功能性說明。</string>
     <string name="no_plant_detail_update">尚無日期資訊。</string>
+    <string name="no_plant_info">無植物資料。</string>
+    <string name="location_everywhere_string">全園普遍分佈</string>
+    <string name="title_network_check_dialog">請檢查網路連線。</string>
 </resources>

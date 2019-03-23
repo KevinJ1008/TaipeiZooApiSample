@@ -11,9 +11,9 @@ public interface TaipeiZooContract {
 
         void showMainUi();
 
-        void showZooDetailUi(Zoo zoo);
+        void showZooDetailUi();
 
-        void showPlantDetailUi(Plant plant);
+        void showPlantDetailUi();
     }
 
     interface Presenter extends BasePresenter {

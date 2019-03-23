@@ -2,6 +2,8 @@ package com.kevinj1008.taipeizooapisample.zoodetail;
 
 import android.util.Log;
 
+import com.kevinj1008.taipeizooapisample.R;
+import com.kevinj1008.taipeizooapisample.TaipeiZoo;
 import com.kevinj1008.taipeizooapisample.api.ApiConstants;
 import com.kevinj1008.taipeizooapisample.api.ApiHelper;
 import com.kevinj1008.taipeizooapisample.api.ApiService;
@@ -50,7 +52,10 @@ public class ZooDetailPresenter implements ZooDetailContract.Presenter {
                     public void onSuccess(PlantResponse plantResponse) {
                         PlantResult plantResult = plantResponse.getPlantResult();
                         for (int i = 0; i < plantResult.getPlants().size(); i++) {
-                            if (plantResult.getPlants().get(i).getLocation().contains(mZoo.getName())) {
+                            String location = plantResult.getPlants().get(i).getLocation();
+                            if (location.contains(mZoo.getName().substring(0, 2))
+                                    || TaipeiZoo.getAppContext().getResources()
+                                    .getString(R.string.location_everywhere_string).equals(location)) {
                                 Plant plant = plantResult.getPlants().get(i);
                                 mPlants.getPlants().add(plant);
                             }

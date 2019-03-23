@@ -42,7 +42,6 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
     private ZooDetailFragment mZooDetailFragment;
     private ZooDetailPresenter mZooDetailPresenter;
 
-    private PlantDetailFragment mPlantDetailFragment;
     private PlantDetailPresenter mPlantDetailPresenter;
 
     public TaipeiZooPresenter(TaipeiZooContract.View taipeiZooView, FragmentManager fragmentManager) {
@@ -95,10 +94,13 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
         }
 
         mZooDetailFragment = ZooDetailFragment.newInstance();
-        transaction.add(R.id.main_container, mZooDetailFragment, ZOO_DETAIL).commit();
+        transaction.add(R.id.main_container, mZooDetailFragment, ZOO_DETAIL);
 
         mZooDetailPresenter = new ZooDetailPresenter(mZooDetailFragment, zoo);
-        mTaipeiZooView.showZooDetailUi(zoo);
+
+        transaction.commit();
+
+        mTaipeiZooView.showZooDetailUi();
     }
 
     @Override
@@ -110,15 +112,17 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
             transaction.hide(mZooDetailFragment).addToBackStack(ZOO_DETAIL);
         }
 
-        if (mMainFragment != null && mMainFragment.isAdded()) {
-            transaction.hide(mMainFragment);
-        }
+//        if (mMainFragment != null && mMainFragment.isAdded()) {
+//            transaction.hide(mMainFragment).addToBackStack(MAIN);
+//        }
 
-        mPlantDetailFragment = PlantDetailFragment.newInstance();
-        transaction.add(R.id.main_container, mPlantDetailFragment, PLANT_DETAIL).commit();
+        PlantDetailFragment plantDetailFragment = PlantDetailFragment.newInstance();
+        transaction.add(R.id.main_container, plantDetailFragment, PLANT_DETAIL);
 
-        mPlantDetailPresenter = new PlantDetailPresenter(mPlantDetailFragment, plant);
-        mTaipeiZooView.showPlantDetailUi(plant);
+        mPlantDetailPresenter = new PlantDetailPresenter(plantDetailFragment, plant);
+
+        transaction.commit();
+        mTaipeiZooView.showPlantDetailUi();
 
     }
 }
