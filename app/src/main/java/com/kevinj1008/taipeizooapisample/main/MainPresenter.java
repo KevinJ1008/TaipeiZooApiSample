@@ -2,21 +2,15 @@ package com.kevinj1008.taipeizooapisample.main;
 
 import android.util.Log;
 
-import com.kevinj1008.taipeizooapisample.api.ApiConstants;
-import com.kevinj1008.taipeizooapisample.api.ApiHelper;
-import com.kevinj1008.taipeizooapisample.api.ApiService;
 import com.kevinj1008.taipeizooapisample.api.bean.GetZoos;
 import com.kevinj1008.taipeizooapisample.model.Zoo;
 import com.kevinj1008.taipeizooapisample.model.response.ZooResponse;
 import com.kevinj1008.taipeizooapisample.model.result.ZooResult;
+import com.kevinj1008.taipeizooapisample.repositry.ZooRepository;
 import com.kevinj1008.taipeizooapisample.util.Constants;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static androidx.core.util.Preconditions.checkNotNull;
 
@@ -41,11 +35,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void loadZoo() {
-        Retrofit retrofit = ApiHelper.get(ApiConstants.BASE_URL);
-
-        ApiService service = retrofit.create(ApiService.class);
-        service.getZooResponse()
-                .subscribeOn(Schedulers.io())
+        ZooRepository.getZoo()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ZooResponse>() {
                     @Override
@@ -72,11 +62,6 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void openZooDetail(Zoo zoo) {
         mMainView.showZooDetailUi(zoo);
-    }
-
-    @Override
-    public void openPlant(Zoo zoo) {
-
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.kevinj1008.taipeizooapisample.adapter;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kevinj1008.taipeizooapisample.R;
-import com.kevinj1008.taipeizooapisample.TaipeiZooActivity;
 import com.kevinj1008.taipeizooapisample.api.bean.GetPlants;
 import com.kevinj1008.taipeizooapisample.model.Plant;
 import com.kevinj1008.taipeizooapisample.model.Zoo;
@@ -71,7 +68,6 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
             } else {
                 ((ZooDetailPlantItemViewHolder) holder).mSeparator.setVisibility(View.VISIBLE);
             }
-            //TODO: Figure out plant api null string issue
             if (!"".equals(mPlants.get(position - 1).getPicture01())) {
                 Picasso.get()
                         .load(mPlants.get(position - 1).getPicture01())

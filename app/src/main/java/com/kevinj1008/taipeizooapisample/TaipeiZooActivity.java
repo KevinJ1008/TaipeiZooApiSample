@@ -41,7 +41,6 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO: new presenter
         mPresenter = new TaipeiZooPresenter(this, getSupportFragmentManager());
 
         init();
@@ -53,7 +52,6 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
         setToolbar();
         setDrawerLayout();
 
-        //TODO: set presenter start
         mPresenter.start();
 
     }
@@ -62,12 +60,12 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
     public void onBackPressed() {
         ConstraintLayout zooDetailPage = findViewById(R.id.zoo_detail_page);
         ConstraintLayout plantDetailPage = findViewById(R.id.plant_detail_page);
+        ConstraintLayout plantContainer = findViewById(R.id.plant_container);
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-//        } else if (zooDetailPage != null && zooDetailPage.getVisibility() == View.VISIBLE) {
-//            mPresenter.transToMain();
         } else {
             if (zooDetailPage != null && zooDetailPage.getVisibility() == View.VISIBLE) showMainUi();
+            if (plantContainer != null && plantContainer.getVisibility() == View.VISIBLE) showMainUi();
             if (plantDetailPage != null && plantDetailPage.getVisibility() == View.VISIBLE) showZooDetailUi();
             super.onBackPressed();
         }
@@ -120,8 +118,6 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
 
         // Set title of toolbar
         mToolbarTitle = findViewById(R.id.toolbar_title);
-        //TODO: delete this line after setup main fragment ui done
-//        mToolbarTitle.setText(getString(R.string.taipei_zoo_title));
     }
 
     /**

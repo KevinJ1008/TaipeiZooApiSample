@@ -52,7 +52,6 @@ public class ZooDetailFragment extends Fragment implements ZooDetailContract.Vie
         View root = inflater.inflate(R.layout.fragment_zoo_detail, container, false);
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerview_zoodetail);
         recyclerView.setLayoutManager(new LinearLayoutManager(TaipeiZoo.getAppContext()));
-//        recyclerView.addItemDecoration(new DividerItemDecoration(TaipeiZoo.getAppContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(mZooDetailAdapter);
 
         return root;

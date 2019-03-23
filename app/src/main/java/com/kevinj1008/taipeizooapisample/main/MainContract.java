@@ -28,13 +28,7 @@ public interface MainContract {
 
         void showZoo(GetZoos zoo);
 
-//        void onScrollStateChanged(int visibleItemCount, int totalItemCount, int newState);
-//
-//        void onScrolled(RecyclerView.LayoutManager layoutManager);
-
         void openZooDetail(Zoo zoo);
-
-        void openPlant(Zoo zoo);
 
         void refresh();
     }

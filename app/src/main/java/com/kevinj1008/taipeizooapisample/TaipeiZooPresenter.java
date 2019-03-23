@@ -60,9 +60,9 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
     public void transToMain() {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
 
+        transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
         if (mFragmentManager.findFragmentByTag(ZOO_DETAIL) != null) {
             mFragmentManager.popBackStack();
-//            mZooDetailPresenter.refresh();
         }
 
         if (mMainFragment == null) mMainFragment = MainFragment.newInstance();
@@ -85,6 +85,7 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
     public void transToZooDetail(Zoo zoo) {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
 
+        transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
         if (mFragmentManager.findFragmentByTag(PLANT_DETAIL) != null) {
             mFragmentManager.popBackStack();
         }
@@ -108,13 +109,10 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
 
+        transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
         if (mZooDetailFragment != null && mZooDetailFragment.isAdded()) {
             transaction.hide(mZooDetailFragment).addToBackStack(ZOO_DETAIL);
         }
-
-//        if (mMainFragment != null && mMainFragment.isAdded()) {
-//            transaction.hide(mMainFragment).addToBackStack(MAIN);
-//        }
 
         PlantDetailFragment plantDetailFragment = PlantDetailFragment.newInstance();
         transaction.add(R.id.main_container, plantDetailFragment, PLANT_DETAIL);

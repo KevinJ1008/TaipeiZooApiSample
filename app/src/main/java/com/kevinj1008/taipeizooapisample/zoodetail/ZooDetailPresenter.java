@@ -12,6 +12,7 @@ import com.kevinj1008.taipeizooapisample.model.Plant;
 import com.kevinj1008.taipeizooapisample.model.Zoo;
 import com.kevinj1008.taipeizooapisample.model.response.PlantResponse;
 import com.kevinj1008.taipeizooapisample.model.result.PlantResult;
+import com.kevinj1008.taipeizooapisample.repositry.PlantRepository;
 import com.kevinj1008.taipeizooapisample.util.Constants;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,11 +42,10 @@ public class ZooDetailPresenter implements ZooDetailContract.Presenter {
 
     @Override
     public void loadPlants() {
-        Retrofit retrofit = ApiHelper.get(ApiConstants.BASE_URL);
-
-        ApiService service = retrofit.create(ApiService.class);
-        service.getPlantResponse()
-                .subscribeOn(Schedulers.io())
+//        Retrofit retrofit = ApiHelper.get(ApiConstants.BASE_URL);
+//
+//        ApiService service = retrofit.create(ApiService.class);
+        PlantRepository.getPlant()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<PlantResponse>() {
                     @Override
