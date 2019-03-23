@@ -42,9 +42,6 @@ public class ZooDetailPresenter implements ZooDetailContract.Presenter {
 
     @Override
     public void loadPlants() {
-//        Retrofit retrofit = ApiHelper.get(ApiConstants.BASE_URL);
-//
-//        ApiService service = retrofit.create(ApiService.class);
         PlantRepository.getPlant()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<PlantResponse>() {
