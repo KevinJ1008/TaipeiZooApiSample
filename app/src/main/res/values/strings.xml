@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">TaipeiZooApiSample</string>
+    <string name="zoo_title">園區簡介</string>
+    <string name="taipei_zoo_title">臺北市立動物園</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="zoo_no_memo">無休館資訊</string>
+    <string name="web_button_title">在網頁開啟</string>
+    <string name="plant_intro_title">植物資料</string>
+    <string name="no_plant_name_ch">尚無中文名稱</string>
+    <string name="plant_detail_also_known_title">別名</string>
+    <string name="plant_detail_brief_title">簡介</string>
+    <string name="plant_detail_feature_title">辨認方式</string>
+    <string name="plant_detail_funtion_application_title">功能性</string>
+    <string name="plant_detail_last_update_title">最後更新：</string>
+    <string name="no_plant_detail_also_known">尚無別稱。</string>
+    <string name="no_plant_detail_brief">尚無簡介。</string>
+    <string name="no_plant_detail_name_ch">尚無中文名稱。</string>
+    <string name="no_plant_detail_name_en">尚無英文名稱。</string>
+    <string name="no_plant_detail_info">尚無資訊。</string>
+    <string name="no_plant_detail_feature">尚無辨認方式。</string>
+    <string name="no_plant_detail_fuction">尚無功能性說明。</string>
+    <string name="no_plant_detail_update">尚無日期資訊。</string>
+    <string name="no_plant_info">無植物資料。</string>
+    <string name="location_everywhere_string">全園普遍分佈</string>
+    <string name="title_network_check_dialog">請檢查網路連線。</string>
 </resources>
