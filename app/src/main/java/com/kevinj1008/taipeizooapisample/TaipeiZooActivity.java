@@ -114,7 +114,7 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
         setSupportActionBar(mToolbar);
 
         // Set the padding to match the Status Bar height
-        mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+        mToolbar.setPadding(-12, getStatusBarHeight(), 0, 0);
 
         // Set title of toolbar
         mToolbarTitle = findViewById(R.id.toolbar_title);

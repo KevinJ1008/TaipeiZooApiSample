@@ -7,5 +7,6 @@
     <dimen name="main_image_height">125</dimen>
     <dimen name="detail_image_height">200dp</dimen>
     <dimen name="plant_detail_margin">16dp</dimen>
+    <dimen name="main_page_item_margin">12dp</dimen>
 
 </resources>
