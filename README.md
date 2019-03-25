@@ -23,7 +23,7 @@ Simple project to have API connection to Taipei metadata and get Taipei zoo and 
 * API
 
   * Retrofit
-  * RxJava2 - Data control
+  * RxJava2 - Thread control
   
 # Requirement
 
