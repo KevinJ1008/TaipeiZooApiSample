@@ -3,6 +3,7 @@ package com.kevinj1008.taipeizooapisample.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 public class NetworkUtil {
 
@@ -30,7 +31,9 @@ public class NetworkUtil {
 
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        Log.d(Constants.TAG, "Network check: " + connectivityManager.isActiveNetworkMetered());
+
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected() && connectivityManager.isActiveNetworkMetered();
 
     }
 
@@ -38,7 +41,7 @@ public class NetworkUtil {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting() && connectivityManager.isActiveNetworkMetered()) {
             return TYPE_CONNECTED;
         }
         return TYPE_NOT_CONNECTED;

@@ -1,5 +1,6 @@
 package com.kevinj1008.taipeizooapisample.base;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -38,9 +39,17 @@ public class BaseActivity extends AppCompatActivity {
         mNetworkCheckReceiver = new NetworkCheckReceiver();
         intentFilter.addAction(Constants.CONNECTIVITY_CHANGE);
         registerReceiver(mNetworkCheckReceiver, intentFilter);
+        registerReceiver(restartReceiver, new IntentFilter("restart_taipeizoosample"));
 
         setStatusBar();
     }
+
+    BroadcastReceiver restartReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            restartApplication();
+        }
+    };
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
