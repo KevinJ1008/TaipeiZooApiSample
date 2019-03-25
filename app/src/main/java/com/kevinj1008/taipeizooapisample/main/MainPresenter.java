@@ -36,6 +36,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void loadZoo() {
         ZooRepository.getZoo()
+                .doOnSubscribe(disposable -> mMainView.showProgressBar(true))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ZooResponse>() {
                     @Override
@@ -43,6 +44,7 @@ public class MainPresenter implements MainContract.Presenter {
                         ZooResult zooResult = zooResponse.getZooResult();
                         GetZoos zoos = new GetZoos();
                         zoos.getZoos().addAll(zooResult.getZoos());
+                        mMainView.showProgressBar(false);
                         showZoo(zoos);
                     }
 

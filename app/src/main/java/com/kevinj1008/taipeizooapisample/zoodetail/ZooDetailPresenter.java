@@ -43,6 +43,7 @@ public class ZooDetailPresenter implements ZooDetailContract.Presenter {
     @Override
     public void loadPlants() {
         PlantRepository.getPlant()
+                .doOnSubscribe(disposable -> mZooDetailView.showZooProgressBar(true))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<PlantResponse>() {
                     @Override
@@ -57,6 +58,7 @@ public class ZooDetailPresenter implements ZooDetailContract.Presenter {
                                 mPlants.getPlants().add(plant);
                             }
                         }
+                        mZooDetailView.showZooProgressBar(false);
                         showPlants(mPlants);
                     }
 
