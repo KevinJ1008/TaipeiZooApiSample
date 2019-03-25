@@ -1,5 +1,7 @@
 # TaipeiZooApiSample
 
+Simple project to have API connection to Taipei metadata and get Taipei zoo and plants data.
+
 # Implementation
 
 * Design Patterns
