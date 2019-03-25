@@ -33,7 +33,7 @@ public class NetworkUtil {
 
         Log.d(Constants.TAG, "Network check: " + connectivityManager.isActiveNetworkMetered());
 
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected() || connectivityManager.isActiveNetworkMetered();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 
     }
 
@@ -41,7 +41,7 @@ public class NetworkUtil {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting() || connectivityManager.isActiveNetworkMetered()) {
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
             return TYPE_CONNECTED;
         }
         return TYPE_NOT_CONNECTED;
