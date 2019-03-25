@@ -14,6 +14,7 @@ Simple project to have API connection to Taipei metadata and get Taipei zoo and 
   * Fragment + TransactionAnimation
   * RecyclerView
   * DrawerToggle
+  * ProgressBar
   * Picasso (Third-party Library)
   
 * NetworkCheker
