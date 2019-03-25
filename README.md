@@ -31,4 +31,5 @@ Simple project to have API connection to Taipei metadata and get Taipei zoo and 
 * Android Studio 3.3.2+
 * Android SDK 23+
 * Gradle 3.3.2+
+* Java 8 - for Lambda expression
 * Support AndroidX
