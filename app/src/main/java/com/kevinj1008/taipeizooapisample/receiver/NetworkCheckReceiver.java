@@ -26,17 +26,19 @@ public class NetworkCheckReceiver extends BroadcastReceiver {
         }
     }
 
-    private void networkCheckDialog(Context context) {
+    private void networkCheckDialog(final Context context) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         alertDialog.setTitle(R.string.title_network_check_dialog);
         alertDialog.setPositiveButton("OK", null);
         final AlertDialog dialog = alertDialog.create();
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NetworkUtil networkUtils = new NetworkUtil(TaipeiZoo.getAppContext());
                 if (networkUtils.isNetworkAvailable()) {
+                    context.sendBroadcast(new Intent("restart_taipeizoosample"));
                     dialog.cancel();
                 }
             }
