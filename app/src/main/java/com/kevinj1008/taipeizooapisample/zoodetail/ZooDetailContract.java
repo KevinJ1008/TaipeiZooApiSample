@@ -18,6 +18,8 @@ public interface ZooDetailContract {
 
         void showZooWeb(String url);
 
+        void showZooProgressBar(boolean show);
+
         void refreshUi();
 
     }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.kevinj1008.taipeizooapisample.R;
 import com.kevinj1008.taipeizooapisample.TaipeiZoo;
@@ -25,6 +26,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     private MainContract.Presenter mPresenter;
     private MainAdapter mMainAdapter;
+    private ProgressBar mProgressBar;
 
     public MainFragment() {
         // Requires empty public constructor
@@ -46,6 +48,7 @@ public class MainFragment extends Fragment implements MainContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerview_main);
+        mProgressBar = root.findViewById(R.id.main_progressbar);
         recyclerView.setLayoutManager(new LinearLayoutManager(TaipeiZoo.getAppContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(TaipeiZoo.getAppContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(mMainAdapter);
@@ -79,6 +82,15 @@ public class MainFragment extends Fragment implements MainContract.View {
     @Override
     public void showZooDetailUi(Zoo zoo) {
         ((TaipeiZooActivity) getActivity()).transToZooDetail(zoo);
+    }
+
+    @Override
+    public void showProgressBar(boolean show) {
+        if (show) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override

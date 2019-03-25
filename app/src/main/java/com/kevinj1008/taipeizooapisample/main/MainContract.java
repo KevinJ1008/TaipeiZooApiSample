@@ -16,6 +16,8 @@ public interface MainContract {
 
         void showZooDetailUi(Zoo zoo);
 
+        void showProgressBar(boolean show);
+
         void refreshUi();
 
     }

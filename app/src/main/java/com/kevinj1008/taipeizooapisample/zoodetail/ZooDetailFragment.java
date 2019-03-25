@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.kevinj1008.taipeizooapisample.R;
 import com.kevinj1008.taipeizooapisample.TaipeiZoo;
@@ -30,6 +31,7 @@ public class ZooDetailFragment extends Fragment implements ZooDetailContract.Vie
 
     private ZooDetailContract.Presenter mPresenter;
     private ZooDetailAdapter mZooDetailAdapter;
+    private ProgressBar mProgressBar;
 
     public ZooDetailFragment() {
         // Requires empty public constructor
@@ -51,6 +53,7 @@ public class ZooDetailFragment extends Fragment implements ZooDetailContract.Vie
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_zoo_detail, container, false);
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerview_zoodetail);
+        mProgressBar = root.findViewById(R.id.zoo_progressbar);
         recyclerView.setLayoutManager(new LinearLayoutManager(TaipeiZoo.getAppContext()));
         recyclerView.setAdapter(mZooDetailAdapter);
 
@@ -89,6 +92,15 @@ public class ZooDetailFragment extends Fragment implements ZooDetailContract.Vie
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
         startActivity(intent);
+    }
+
+    @Override
+    public void showZooProgressBar(boolean show) {
+        if (show) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
