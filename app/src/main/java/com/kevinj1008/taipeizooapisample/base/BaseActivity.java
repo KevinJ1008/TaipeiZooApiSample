@@ -61,6 +61,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mNetworkCheckReceiver);
+        unregisterReceiver(restartReceiver);
     }
 
     private void restartApplication() {
