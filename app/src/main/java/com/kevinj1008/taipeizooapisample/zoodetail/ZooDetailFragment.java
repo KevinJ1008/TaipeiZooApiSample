@@ -106,7 +106,7 @@ public class ZooDetailFragment extends Fragment implements ZooDetailContract.Vie
     @Override
     public void refreshUi() {
         mZooDetailAdapter.initData();
-        Log.d(Constants.TAG, "clear Zoo Detail page");
+        Log.d(Constants.TAG, "clear ZooBody Detail page");
     }
 
 }

@@ -12,10 +12,13 @@ import com.kevinj1008.taipeizooapisample.TaipeiZooActivity;
 import com.kevinj1008.taipeizooapisample.adapter.MainAdapter;
 import com.kevinj1008.taipeizooapisample.api.bean.GetZoos;
 import com.kevinj1008.taipeizooapisample.model.Zoo;
+import com.kevinj1008.taipeizooapisample.mvvm.viewmodel.MainViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +30,8 @@ public class MainFragment extends Fragment implements MainContract.View {
     private MainContract.Presenter mPresenter;
     private MainAdapter mMainAdapter;
     private ProgressBar mProgressBar;
+
+    private MainViewModel mainViewModel;
 
     public MainFragment() {
         // Requires empty public constructor
@@ -41,6 +46,14 @@ public class MainFragment extends Fragment implements MainContract.View {
         super.onCreate(savedInstanceState);
 
         mMainAdapter = new MainAdapter(new GetZoos(), mPresenter);
+//        mMainAdapter = new MainAdapter();
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+
+        //load zoos normally
+//        mainViewModel.getZooList().observe(this, zoos -> mMainAdapter.setZoos(zoos));
+
+        //load zoo one by one
+        mainViewModel.getZoo().observe(this, zoo -> mMainAdapter.addZooToList(zoo));
     }
 
     @Nullable
@@ -53,13 +66,26 @@ public class MainFragment extends Fragment implements MainContract.View {
         recyclerView.addItemDecoration(new DividerItemDecoration(TaipeiZoo.getAppContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(mMainAdapter);
 
+        mainViewModel.getLoadProgress().observe(this, this::showProgressBar);
+
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.start();
+//        mPresenter.start();
+
+        //load zoos normally
+//        mainViewModel.loadZoo();
+
+        //load zoo one by one
+        mainViewModel.loadZooFlow();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

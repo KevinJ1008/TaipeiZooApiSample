@@ -15,6 +15,7 @@ import com.kevinj1008.taipeizooapisample.util.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -29,6 +30,12 @@ public class MainAdapter extends RecyclerView.Adapter {
         this.mZoos = zoos.getZoos();
         mPresenter = presenter;
     }
+
+//    public MainAdapter() {
+//        mZoos = new ArrayList<>();
+////        this.mZoos = zooBodies.getZooBodies();
+////        mPresenter = presenter;
+//    }
 
     @NonNull
     @Override
@@ -96,6 +103,24 @@ public class MainAdapter extends RecyclerView.Adapter {
 
         notifyDataSetChanged();
         Log.d(Constants.TAG, "MainAdapter update data");
+    }
+
+    public void setZoos(List<Zoo> zoos) {
+        if (null == mZoos) {
+            mZoos = new ArrayList<>();
+        }
+        mZoos.clear();
+        mZoos.addAll(zoos);
+        notifyDataSetChanged();
+        Log.d("Zoo List size: ", mZoos.toString());
+    }
+
+    public void addZooToList(Zoo zoo) {
+        if (null == mZoos) {
+            mZoos = new ArrayList<>();
+        }
+        mZoos.add(zoo);
+        notifyDataSetChanged();
     }
 
 }

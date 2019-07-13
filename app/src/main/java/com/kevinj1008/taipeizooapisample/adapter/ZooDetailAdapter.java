@@ -171,7 +171,7 @@ public class ZooDetailAdapter extends RecyclerView.Adapter {
         }
 
         notifyDataSetChanged();
-        Log.d(Constants.TAG, "Zoo Detail Adapter update data size: " + plants.getPlants().size());
+        Log.d(Constants.TAG, "ZooBody Detail Adapter update data size: " + plants.getPlants().size());
     }
 
     public void initData() {
