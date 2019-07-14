@@ -6,6 +6,7 @@ import com.kevinj1008.taipeizooapisample.mvvm.repository.MainRepository
 import io.mockk.every
 import io.mockk.mockkObject
 import io.reactivex.Single
+import io.reactivex.observers.TestObserver
 import io.reactivex.subscribers.TestSubscriber
 import org.junit.Test
 
@@ -14,6 +15,21 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.spy
 
 class ZooUseCaseTest: BaseTest() {
+
+    @Test
+    fun loadZoo() {
+        mockkObject(MainRepository)
+        mockkObject(ZooUseCase)
+
+        val zooList = spy(arrayListOf<Zoo>()::class.java)
+        val testObserver = TestObserver<List<Zoo>>()
+
+        every { MainRepository.loadZoo() } returns Single.just(zooList)
+
+        ZooUseCase.loadZoo().subscribe(testObserver)
+
+        testObserver.assertValue(zooList)
+    }
 
     @Test
     fun loadZooFlowable() {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -31,6 +32,7 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private TextView mToolbarTitle;
+    private Button reloadButton;
 
     private Zoo mZoo;
     private Plant mPlant;
@@ -51,9 +53,19 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
 
         setToolbar();
         setDrawerLayout();
+        setNoDataView();
 
         mPresenter.start();
 
+    }
+
+    private void setNoDataView() {
+        reloadButton = findViewById(R.id.reload_button);
+        reloadButton.setVisibility(View.GONE);
+        reloadButton.setOnClickListener(v -> {
+            reloadButton.setVisibility(View.GONE);
+            mPresenter.reloadZoo();
+        });
     }
 
     @Override
@@ -101,6 +113,10 @@ public class TaipeiZooActivity extends BaseActivity implements TaipeiZooContract
     public void transToPlantDetail(Plant plant) {
         this.mPlant = plant;
         mPresenter.transToPlantDetail(plant);
+    }
+
+    public void showReloadButton(Throwable throwable) {
+        reloadButton.setVisibility(View.VISIBLE);
     }
 
     @Override

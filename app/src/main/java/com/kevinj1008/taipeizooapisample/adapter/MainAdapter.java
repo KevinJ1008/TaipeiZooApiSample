@@ -31,12 +31,6 @@ public class MainAdapter extends RecyclerView.Adapter {
         mPresenter = presenter;
     }
 
-//    public MainAdapter() {
-//        mZoos = new ArrayList<>();
-////        this.mZoos = zooBodies.getZooBodies();
-////        mPresenter = presenter;
-//    }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -121,6 +115,10 @@ public class MainAdapter extends RecyclerView.Adapter {
         }
         mZoos.add(zoo);
         notifyDataSetChanged();
+    }
+
+    public void refresh() {
+        if (null != mZoos) mZoos.clear();
     }
 
 }

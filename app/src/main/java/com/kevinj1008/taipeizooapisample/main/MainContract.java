@@ -18,6 +18,10 @@ public interface MainContract {
 
         void showProgressBar(boolean show);
 
+        void handleError(Throwable throwable);
+
+        void reloadZoo();
+
         void refreshUi();
 
     }
@@ -32,6 +36,6 @@ public interface MainContract {
 
         void openZooDetail(Zoo zoo);
 
-        void refresh();
+        void reload();
     }
 }

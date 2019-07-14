@@ -24,6 +24,8 @@ public interface TaipeiZooContract {
 
         void transToPlantDetail(Plant plant);
 
+        void reloadZoo();
+
     }
 
 }

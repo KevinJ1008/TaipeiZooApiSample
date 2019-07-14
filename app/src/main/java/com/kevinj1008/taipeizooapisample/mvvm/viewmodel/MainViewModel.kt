@@ -23,11 +23,12 @@ class MainViewModel(
 
     fun loadZoo() {
         launch {
-            MainRepository.loadZoo()
+            ZooUseCase.loadZoo()
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe { loadProgress.value = true }
                     .doFinally { loadProgress.value = false }
-                    .subscribe({ zooList.value = it }, { loadError.value = it })
+                    .subscribe({ zooList.value = it },
+                            { loadError.value = it })
 
         }
     }
@@ -39,7 +40,8 @@ class MainViewModel(
                     .combineLatest(Flowable.interval(0, 3_000L, TimeUnit.SECONDS))
                     .onBackpressureLatest()
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ onZooFlowData(it) }, {})
+                    .subscribe({ onZooFlowData(it) },
+                            { loadError.value = it })
         }
     }
 

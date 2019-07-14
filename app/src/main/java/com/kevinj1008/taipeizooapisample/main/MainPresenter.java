@@ -67,8 +67,8 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void refresh() {
-
+    public void reload() {
+        mMainView.reloadZoo();
     }
 
 }

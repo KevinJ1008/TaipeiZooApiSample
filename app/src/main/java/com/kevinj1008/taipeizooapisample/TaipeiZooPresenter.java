@@ -132,4 +132,9 @@ public class TaipeiZooPresenter implements TaipeiZooContract.Presenter {
         mTaipeiZooView.showPlantDetailUi();
 
     }
+
+    @Override
+    public void reloadZoo() {
+        mMainPresenter.reload();
+    }
 }

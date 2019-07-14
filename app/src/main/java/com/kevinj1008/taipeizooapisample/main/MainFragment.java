@@ -46,11 +46,10 @@ public class MainFragment extends Fragment implements MainContract.View {
         super.onCreate(savedInstanceState);
 
         mMainAdapter = new MainAdapter(new GetZoos(), mPresenter);
-//        mMainAdapter = new MainAdapter();
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         //load zoos normally
-//        mainViewModel.getZooList().observe(this, zoos -> mMainAdapter.setZoos(zoos));
+        mainViewModel.getZooList().observe(this, zoos -> mMainAdapter.setZoos(zoos));
 
         //load zoo one by one
         mainViewModel.getZoo().observe(this, zoo -> mMainAdapter.addZooToList(zoo));
@@ -67,6 +66,7 @@ public class MainFragment extends Fragment implements MainContract.View {
         recyclerView.setAdapter(mMainAdapter);
 
         mainViewModel.getLoadProgress().observe(this, this::showProgressBar);
+        mainViewModel.getLoadError().observe(this, this::handleError);
 
         return root;
     }
@@ -77,10 +77,10 @@ public class MainFragment extends Fragment implements MainContract.View {
 //        mPresenter.start();
 
         //load zoos normally
-//        mainViewModel.loadZoo();
+        mainViewModel.loadZoo();
 
         //load zoo one by one
-        mainViewModel.loadZooFlow();
+//        mainViewModel.loadZooFlow();
     }
 
     @Override
@@ -117,6 +117,21 @@ public class MainFragment extends Fragment implements MainContract.View {
         } else {
             mProgressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void handleError(Throwable throwable) {
+        ((TaipeiZooActivity) getActivity()).showReloadButton(throwable);
+    }
+
+    @Override
+    public void reloadZoo() {
+        mMainAdapter.refresh();
+        //load zoos normally
+        mainViewModel.loadZoo();
+
+        //load zoo one by one
+//        mainViewModel.loadZooFlow();
     }
 
     @Override
