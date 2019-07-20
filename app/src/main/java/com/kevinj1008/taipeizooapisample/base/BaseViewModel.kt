@@ -13,10 +13,6 @@ abstract class BaseViewModel : ViewModel() {
         disposables.add(job())
     }
 
-    fun clear() {
-        disposables.clear()
-    }
-
     @CallSuper
     override fun onCleared() {
         super.onCleared()

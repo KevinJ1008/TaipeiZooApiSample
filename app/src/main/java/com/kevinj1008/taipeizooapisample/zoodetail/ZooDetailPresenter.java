@@ -51,7 +51,7 @@ public class ZooDetailPresenter implements ZooDetailContract.Presenter {
                         PlantResult plantResult = plantResponse.getPlantResult();
                         for (int i = 0; i < plantResult.getPlants().size(); i++) {
                             String location = plantResult.getPlants().get(i).getLocation();
-                            if (location.contains(mZoo.getName().substring(0, 2))
+                            if (null != location && location.contains(mZoo.getName().substring(0, 2))
                                     || TaipeiZoo.getAppContext().getResources()
                                     .getString(R.string.location_everywhere_string).equals(location)) {
                                 Plant plant = plantResult.getPlants().get(i);
